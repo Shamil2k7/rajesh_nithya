@@ -2,10 +2,9 @@ import './globals.css';
 
 export const metadata = {
   metadataBase: new URL('https://weddinginvitelik.ink'),
-  title: 'Wedding Invitation Platform',
-  description: 'Digital wedding invitation platform',
-  keywords: ['Wedding Invitation', 'Rajesh and Nithya', 'Guruvayur Temple Wedding', 'Indian Wedding', 'Traditional Wedding'],
-  themeColor: '#FFF5E6',
+  title: 'Wedding Invitations Platform',
+  description: 'Digital Wedding Invitation Platform',
+  keywords: ['Wedding Invitations', 'Digital Wedding Cards'],
 };
 
 export const viewport = {
