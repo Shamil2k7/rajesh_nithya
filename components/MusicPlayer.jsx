@@ -1,16 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Play, Pause, Music } from 'lucide-react';
+import React, { useState } from 'react';
+import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
 
 export default function MusicPlayer({
-  musicData,
   isPlaying,
   setIsPlaying,
   audioRef,
 }) {
   const [isMuted, setIsMuted] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
 
   // Sync mute state with audio element
   const toggleMute = (e) => {
@@ -36,16 +34,6 @@ export default function MusicPlayer({
     }
   };
 
-  // Brief helper hint for users on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-      const hideTimer = setTimeout(() => setShowTooltip(false), 5000);
-      return () => clearTimeout(hideTimer);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div
       style={{
@@ -55,37 +43,10 @@ export default function MusicPlayer({
         zIndex: 99,
         display: 'flex',
         alignItems: 'center',
-        gap: '10px',
       }}
       role="region"
       aria-label="Wedding Music Controls"
     >
-      {/* Floating Track Info Tooltip */}
-      {showTooltip && (
-        <div
-          style={{
-            background: 'rgba(255, 245, 230, 0.96)',
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(217, 154, 53, 0.4)',
-            boxShadow: '0 8px 24px rgba(101, 69, 35, 0.15)',
-            borderRadius: '24px',
-            padding: '8px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontSize: '0.8rem',
-            color: '#654523',
-            fontFamily: 'var(--font-heading)',
-            letterSpacing: '0.05em',
-            animation: 'fadeIn 0.4s ease',
-          }}
-          onClick={() => setShowTooltip(false)}
-        >
-          <Music size={14} color="#D99A35" />
-          <span>{musicData?.title || 'Wedding Music'}</span>
-        </div>
-      )}
-
       {/* Main Music Control Capsule */}
       <div
         style={{
@@ -123,18 +84,16 @@ export default function MusicPlayer({
           {isPlaying ? <Pause size={18} /> : <Play size={18} style={{ marginLeft: '2px' }} />}
         </button>
 
-        {/* Animated Sound Equalizer Bars (only animates when playing & not muted) */}
+        {/* Animated Sound Equalizer Bars */}
         <div
-          onClick={() => setShowTooltip(!showTooltip)}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '3px',
             height: '24px',
             padding: '0 4px',
-            cursor: 'pointer',
           }}
-          title="Click to view song info"
+          aria-hidden="true"
         >
           {[0.6, 1.2, 0.8, 1.4, 0.5].map((scale, i) => (
             <span
@@ -182,16 +141,6 @@ export default function MusicPlayer({
           }
           100% {
             transform: scaleY(1.15);
-          }
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
           }
         }
       `}</style>

@@ -10,6 +10,7 @@ import Countdown from './Countdown';
 import VenueSection from './VenueSection';
 import ClosingSection from './ClosingSection';
 import MusicPlayer from './MusicPlayer';
+import FloatingLocationButton from './FloatingLocationButton';
 import FloatingPetals from './FloatingPetals';
 
 export default function WeddingView({ wedding }) {
@@ -182,10 +183,14 @@ export default function WeddingView({ wedding }) {
         <ClosingSection wedding={wedding} />
       </div>
 
-      {/* Floating Music Control Widget */}
+      {/* Floating Location Button (Bottom-Left) */}
+      {isOpen && (
+        <FloatingLocationButton venue={wedding.venue} />
+      )}
+
+      {/* Floating Music Control Widget (Bottom-Right) */}
       {isOpen && (
         <MusicPlayer
-          musicData={wedding.media.music}
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}
           audioRef={audioRef}
